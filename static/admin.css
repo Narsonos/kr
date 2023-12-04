@@ -1,0 +1,144 @@
+#main {
+	background: rgb(222,222,226);
+	background: linear-gradient(90deg, rgba(222,222,226,1) 10%, rgba(214,187,187,1) 50%, rgba(163,205,213,1) 100%);
+}
+#main-dashboard {
+	background: rgb(233,233,233);
+	background: linear-gradient(47deg, rgba(233,233,233,1) 10%, rgba(180,200,200,1) 43%, rgba(163,205,213,1) 100%); 
+}
+
+.container .row {
+	justify-content: center;
+	align-items: center;
+}
+
+.custom-table {
+	max-width: 70vw;
+	min-width: 400px;
+	border-color: #275c51!important;
+}
+
+.custom-table tr td, .custom-table tr th  {
+	/* background-color: rgba(89,112,111,0.5)!important;
+	color:white!important; */
+	background-color: rgba(255,255,255,0.5)!important;
+	color: #275c51!important;
+}
+
+.custom-theme-table-bg {
+	background-color: rgba(255,255,255,0.5)!important;
+	border-color: #275c51!important;
+}
+.custom-theme-table-fg {
+	color: #275c51!important;
+}
+
+.dtpagination {
+	max-width: 270px;
+	display: flex;
+	justify-content: center;
+}
+
+.main-container {
+	min-width: 400px;
+	margin-left:280px;
+}
+
+button .spinner-border {
+    display:none;
+}
+button.loading {
+    pointer-events: none;
+}
+button.loading i {
+    display:none;
+}
+button.loading .spinner-border {
+    display:inline-block;
+}
+
+#sidebar {
+	background: rgba(255,255,255,0.5)!important;
+	width:280px;
+	float:left;
+	position:fixed;
+}
+
+#sidebar ul li a, .custom-theme-color {
+	color: #275c51!important;
+}
+
+.custom-theme-bg, .custom-theme-checks:checked {
+	background: #275c51!important;
+	border-color: #275c51!important;
+}
+
+
+#sidebar .nav-pills .nav-link.active {
+	background: #275c51!important;
+	color: white!important;;
+}
+
+.custom-details-button-container:hover {
+	transition:background-color 0.3s ease;
+}
+
+.custom-details-button-container:hover {
+	background-color: #b5c7c9;
+}
+
+
+/* animation of appearance */
+
+#card-container { opacity: 0; }
+
+#card-container.current {
+    opacity: 1;
+    animation-name: fadeIn;
+    animation-duration: 1s;   
+    animation-timing-function: linear ;  
+    visibility: visible !important; 
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.0;       
+    }
+    60% {
+        opacity: 0.6;  
+    }
+    80% {
+		opacity: 0.8; 
+    }   
+    100% {
+        opacity: 1; 
+    }       
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;       
+    }
+    60% {
+        opacity: 0.8;  
+    }
+    80% {
+		opacity: 0.6; 
+    }   
+    100% {
+        opacity: 0;
+
+    }       
+}
+
+
+.additional-block { opacity:0%; display:none; }
+.additional-block.current {
+	opacity: 1; 
+	display:block;
+	animation-name: fadeIn;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	visibility: visible !important;
+}
+

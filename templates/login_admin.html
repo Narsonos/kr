@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wi-fi > Admin</title>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Georgy" >
+<script src="static/jquery.min.js"></script>
+<script src="static/bootstrap.js"></script>
+<link href="static/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="static/admin.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body id="main">
+
+	<div class="container align-items-center justify-content-center vh-100 my-auto">
+			
+    <form id="sendin" name="sendin" class="needs-validation" action="http://192.168.88.248:5000/login_validate" method="post" style="display:none" novalidate>
+    	<input type="hidden" name="actual_login" value="yes">
+    </form>
+
+    <div class="row align-items-center justify-content-center h-100">
+			<div class="row">
+				<div class="card shadow-lg" style="width: 20rem;">
+				  <div class="card-body">
+
+				  	<h5 class="card-title text-center text-primary py-3 fw-semibold">Панель администратора</h5>
+				    <input id="vlogin" type="text" form="sendin" name="username" class="form-control mt-3" placeholder="Логин">
+				    <div id="svlogin" class="invalid-feedback">
+      				Пользователя не суещствует!
+    				</div>
+
+				    <input id="vpassword" type="password" form="sendin" name="password" class="form-control mt-3" placeholder="Пароль">
+				    <div id="svpassword" class="invalid-feedback">
+      				Пароль указан неверно!
+    				</div>
+				    <div class="row my-3">
+				    <button id="vbtn" form="sendin" class="form-control w-50 btn btn-primary" type="submit">
+				    	<span id="load-text" class="">Войти</span>
+				    	<div class="spinner-border spinner-border-sm mx-2" role="status">
+               </div></button>
+				  	</div>
+				  </div>
+				</div>
+
+				<div class="row text-center my-2">
+					<p id="footer"><br>Сервис предоставлен ЗАО "ЦентрСвязь"<br>Тел. - 35-05-05 </p>
+				</div>
+
+			</div>
+		</div>
+ </div>
+
+<script>
+	var form = document.sendin
+	var username = document.getElementById("vlogin");
+	var password = document.getElementById("vpassword");
+	var button = document.getElementById("vbtn");
+	var loadtext = document.getElementById("load-text");
+
+    username.addEventListener('change', function (event) {
+
+        /* If the value changes, remove validation */
+
+        this.classList.remove("is-invalid");
+        this.classList.remove("is-valid");
+        this.setCustomValidity("");
+
+    }, false);
+
+   password.addEventListener('change', function (event) {
+
+        /* If the value changes, remove validation */
+
+        this.classList.remove("is-invalid");
+        this.classList.remove("is-valid");
+        this.setCustomValidity("");
+
+    }, false);
+
+    form.addEventListener('submit', function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+
+        form.classList.add('was-validated');
+        button.classList.add('loading');
+        loadtext.textValue = "Ожидаем..."
+
+			 $.ajax({
+			   type: 'POST',
+			   url: `http://192.168.88.248:5000/login_validate`,
+			   data: {
+			   	'username': document.sendin.vlogin.value,
+			   	'password': document.sendin.vpassword.value,
+			   	'actual_login': 'no'
+			   },
+			    success: function(response) {
+			    		button.classList.remove('loading');
+			    		loadtext.textValue = "Войти"
+			    		button.blur();
+			    		if (response.login_is_valid) {
+			    				username.classList.add("is-valid"); 
+            			username.classList.remove("is-invalid");
+            			username.setCustomValidity("");
+			    		}
+			    		else {
+			      			username.classList.remove("is-valid"); 
+            			username.classList.add("is-invalid");
+            			username.setCustomValidity("invalid");
+			    		}
+			    		if (response.password_is_valid) {
+			    				password.classList.add("is-valid"); 
+            			password.classList.remove("is-invalid");
+            			password.setCustomValidity("");
+			    		}
+			    		else {
+			      			password.classList.remove("is-valid"); 
+            			password.classList.add("is-invalid");
+            			password.setCustomValidity("invalid");
+			    		}
+            	console.log(response)
+            	if (response.login_is_valid & response.password_is_valid) {
+            		form.submit()
+            		console.log("logging in")
+            	}
+			        },
+			   error: function (response){
+			   		button.classList.remove('loading');
+			   		console.log(response)
+			   }
+			 });
+			})
+
+				
+
+
+
+</script>
+	
+</body>
+</html>
